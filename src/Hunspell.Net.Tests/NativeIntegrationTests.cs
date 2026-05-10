@@ -6,7 +6,7 @@ public class NativeIntegrationTests : IDisposable
 {
     private static readonly string TestDataDir = Path.GetFullPath(
         Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..",
-            "references", "hunspell-hunspell-master", "tests"));
+            "references", "hunspell", "tests"));
 
     private readonly HunspellDictionary _dict;
 

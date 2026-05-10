@@ -6,7 +6,7 @@ public class HunspellDictionaryTests
 {
     private static readonly string TestDataDir = Path.GetFullPath(
         Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..",
-            "references", "hunspell-hunspell-master", "tests"));
+            "references", "hunspell", "tests"));
 
     private static string AffPath => Path.Combine(TestDataDir, "base.aff");
     private static string DicPath => Path.Combine(TestDataDir, "base.dic");
