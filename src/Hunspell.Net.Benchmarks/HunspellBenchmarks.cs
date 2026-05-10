@@ -7,9 +7,21 @@ namespace Hunspell.Net.Benchmarks;
 [JsonExporterAttribute.Full]
 public class HunspellBenchmarks
 {
-    private static readonly string TestDataDir = Path.GetFullPath(
-        Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..",
-            "references", "hunspell", "tests"));
+    private static readonly string TestDataDir = FindTestDataDir();
+
+    private static string FindTestDataDir()
+    {
+        var dir = new DirectoryInfo(AppContext.BaseDirectory);
+        while (dir != null)
+        {
+            var candidate = Path.Combine(dir.FullName, "references", "hunspell", "tests");
+            if (Directory.Exists(candidate))
+                return candidate;
+            dir = dir.Parent;
+        }
+        throw new DirectoryNotFoundException(
+            "Could not find 'references/hunspell/tests' in any parent of " + AppContext.BaseDirectory);
+    }
 
     private static string AffPath => Path.Combine(TestDataDir, "base.aff");
     private static string DicPath => Path.Combine(TestDataDir, "base.dic");
