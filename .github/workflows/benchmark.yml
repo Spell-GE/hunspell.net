@@ -16,14 +16,7 @@ permissions:
 jobs:
   benchmark:
     timeout-minutes: 5
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            build-script: ./src/Hunspell.Native/build.sh x64
-          - os: windows-latest
-            build-script: pwsh ./src/Hunspell.Native/build.ps1
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
         with:
@@ -34,13 +27,12 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Build native library
-        run: ${{ matrix.build-script }}
+        run: ./src/Hunspell.Native/build.sh x64
 
       - name: Run benchmarks
         run: dotnet run -c Release --project src/Hunspell.Net.Benchmarks -- --filter '*' --exporters json --job dry
 
       - name: Store benchmark results
-        if: matrix.os == 'ubuntu-latest'
         uses: benchmark-action/github-action-benchmark@v1
         with:
           name: Hunspell.Net Benchmarks
