@@ -86,3 +86,7 @@ git tag v1.0.0-beta.1 && git push origin v1.0.0-beta.1  # pre-release
 ```
 
 The workflow builds the native library, packs `SpellGE.Hunspell.Linux` and `SpellGE.Hunspell`, and pushes both to nuget.org. The repository must have a `NUGET_ORG_API_KEY` secret configured.
+
+## License
+
+This project wraps [Hunspell](https://github.com/hunspell/hunspell), an open-source spell checker by Németh László. The native library is distributed under its original triple license: **MPL 1.1 / GPL 2.0+ / LGPL 2.1+**. The .NET wrapper code is licensed under LGPL 2.1+. See [references/hunspell/license.hunspell](references/hunspell/license.hunspell) for full details.
