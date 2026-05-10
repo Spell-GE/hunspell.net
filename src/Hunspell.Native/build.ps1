@@ -2,7 +2,7 @@ $ErrorActionPreference = "Stop"
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $BuildDir = Join-Path $ScriptDir "build"
-$OutputDir = Join-Path $ScriptDir "out"
+$OutputDir = Join-Path $ScriptDir "out" "x64"
 
 New-Item -ItemType Directory -Force -Path $BuildDir | Out-Null
 

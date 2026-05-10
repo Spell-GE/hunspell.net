@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="SpellGE.Hunspell.Linux" Version="[$(Version)]" PrivateAssets="none" />
+    <PackageReference Include="SpellGE.Hunspell.Windows" Version="[$(Version)]" PrivateAssets="none" />
   </ItemGroup>
 
 </Project>

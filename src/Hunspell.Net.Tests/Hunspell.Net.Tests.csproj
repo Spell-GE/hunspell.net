@@ -22,12 +22,6 @@
     <ProjectReference Include="..\Hunspell.Net\Hunspell.Net.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="$([MSBuild]::IsOSPlatform('OSX')) And '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm64'">
-    <None Include="..\Hunspell.Native\out\arm64\libhunspell.dylib" CopyToOutputDirectory="PreserveNewest" Link="libhunspell.dylib" />
-  </ItemGroup>
-  <ItemGroup Condition="$([MSBuild]::IsOSPlatform('OSX')) And '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64'">
-    <None Include="..\Hunspell.Native\out\x64\libhunspell.dylib" CopyToOutputDirectory="PreserveNewest" Link="libhunspell.dylib" />
-  </ItemGroup>
   <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
     <None Include="..\Hunspell.Native\out\x64\libhunspell.so" CopyToOutputDirectory="PreserveNewest" Link="libhunspell.so" />
   </ItemGroup>

@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <NativeOutputDir Condition="'$(NativeOutputDir)' == ''">../Hunspell.Native/out</NativeOutputDir>
+    <NativeOutputDir Condition="'$(NativeOutputDir)' == ''">../Hunspell.Native/out/x64</NativeOutputDir>
   </PropertyGroup>
 
   <ItemGroup>
