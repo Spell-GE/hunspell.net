@@ -75,3 +75,14 @@ dict.Remove("hello");  // remove from runtime dictionary
 ## Thread Safety
 
 Each `HunspellDictionary` instance is thread-safe. All public methods are serialized via a per-instance lock. Different instances can be used concurrently without contention.
+
+## Publishing
+
+Packages are published to nuget.org automatically via GitHub Actions when a version tag is pushed.
+
+```bash
+git tag v1.0.0 && git push origin v1.0.0        # stable release
+git tag v1.0.0-beta.1 && git push origin v1.0.0-beta.1  # pre-release
+```
+
+The workflow builds the native library, packs `SpellGE.Hunspell.Linux` and `SpellGE.Hunspell`, and pushes both to nuget.org. The repository must have a `NUGET_ORG_API_KEY` secret configured.

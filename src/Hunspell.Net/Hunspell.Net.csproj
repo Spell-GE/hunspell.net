@@ -8,4 +8,17 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageId>SpellGE.Hunspell</PackageId>
+    <Description>.NET wrapper for Hunspell spell-checking library with P/Invoke bindings and instance-level thread safety. Hunspell is an open-source spell checker licensed under MPL 1.1/GPL 2.0+/LGPL 2.1+.</Description>
+    <Authors>SpellCheckerGE</Authors>
+    <PackageLicenseExpression>LGPL-2.1-or-later</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/Spell-GE/hunspell</RepositoryUrl>
+    <Copyright>Copyright (C) 2002-2022 Németh László (Hunspell)</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SpellGE.Hunspell.Linux" Version="[$(Version)]" PrivateAssets="none" />
+  </ItemGroup>
+
 </Project>

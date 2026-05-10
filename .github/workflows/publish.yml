@@ -1,0 +1,110 @@
+name: Publish NuGet Packages
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  VERSION: ${{ github.ref_name }}
+
+jobs:
+  build-linux:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Extract version from tag
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+
+      - name: Build native library
+        run: ./src/Hunspell.Native/build.sh x64
+
+      - name: Pack SpellGE.Hunspell.Linux
+        run: |
+          dotnet pack src/SpellGE.Hunspell.Linux/SpellGE.Hunspell.Linux.csproj \
+            --configuration Release \
+            --output ./artifacts \
+            /p:Version=${{ env.VERSION }} \
+            /p:NativeOutputDir=${{ github.workspace }}/src/Hunspell.Native/out/x64
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nupkg-linux
+          path: ./artifacts/*.nupkg
+
+  build-windows:
+    if: false
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Extract version from tag
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart('v')
+          echo "VERSION=$version" >> $env:GITHUB_ENV
+
+      - name: Build native library
+        shell: pwsh
+        run: ./src/Hunspell.Native/build.ps1
+
+      - name: Pack SpellGE.Hunspell.Windows
+        shell: pwsh
+        run: |
+          dotnet pack src/SpellGE.Hunspell.Windows/SpellGE.Hunspell.Windows.csproj `
+            --configuration Release `
+            --output ./artifacts `
+            /p:Version=${{ env.VERSION }} `
+            /p:NativeOutputDir=${{ github.workspace }}/src/Hunspell.Native/out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nupkg-windows
+          path: ./artifacts/*.nupkg
+
+  publish:
+    needs: [build-linux]
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Extract version from tag
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: ./native-packages
+          merge-multiple: true
+
+      - name: Create local NuGet source
+        run: |
+          mkdir -p ./local-feed
+          cp ./native-packages/*.nupkg ./local-feed/
+          dotnet nuget add source ./local-feed --name local-feed
+
+      - name: Pack SpellGE.Hunspell
+        run: |
+          dotnet pack src/Hunspell.Net/Hunspell.Net.csproj \
+            --configuration Release \
+            --output ./artifacts \
+            /p:Version=${{ env.VERSION }}
+
+      - name: Publish to NuGet.org
+        run: |
+          for pkg in ./local-feed/*.nupkg; do
+            dotnet nuget push "$pkg" --api-key ${{ secrets.NUGET_ORG_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+          done
+          for pkg in ./artifacts/*.nupkg; do
+            dotnet nuget push "$pkg" --api-key ${{ secrets.NUGET_ORG_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+          done

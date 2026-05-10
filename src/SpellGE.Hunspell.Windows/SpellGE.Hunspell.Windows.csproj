@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>SpellGE.Hunspell.Windows</PackageId>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NoBuild>true</NoBuild>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+    <Description>Native hunspell shared library for win-x64. Hunspell is an open-source spell checker originally authored by Németh László.</Description>
+    <Authors>SpellCheckerGE</Authors>
+    <PackageLicenseExpression>MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/Spell-GE/hunspell</RepositoryUrl>
+    <Copyright>Copyright (C) 2002-2022 Németh László</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NativeOutputDir Condition="'$(NativeOutputDir)' == ''">../Hunspell.Native/out</NativeOutputDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(NativeOutputDir)/hunspell.dll" Pack="true" PackagePath="runtimes/win-x64/native/" />
+  </ItemGroup>
+
+</Project>
