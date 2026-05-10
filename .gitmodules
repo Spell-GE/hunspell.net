@@ -1,0 +1,3 @@
+[submodule "references/hunspell"]
+	path = references/hunspell
+	url = git@github.com:Spell-GE/hunspell.git

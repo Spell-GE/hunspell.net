@@ -1,0 +1,10 @@
+bin
+obj
+build
+build-*
+out
+
+.DS_Store
+*.user
+.vs/
+TestResults/
