@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>SpellGE.Hunspell.Windows</PackageId>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <NoDefaultExcludes>true</NoDefaultExcludes>
     <Description>Native hunspell shared library for win-x64. Hunspell is an open-source spell checker originally authored by Németh László.</Description>
