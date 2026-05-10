@@ -16,11 +16,11 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
 
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
 
@@ -38,7 +38,7 @@ jobs:
             /p:Version=${{ env.VERSION }} \
             /p:NativeOutputDir=${{ github.workspace }}/src/Hunspell.Native/out/x64
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: nupkg-linux
           path: ./artifacts/*.nupkg
@@ -46,11 +46,11 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
 
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
 
@@ -73,7 +73,7 @@ jobs:
             /p:Version=${{ env.VERSION }} `
             /p:NativeOutputDir=${{ github.workspace }}/src/Hunspell.Native/out/x64
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: nupkg-windows
           path: ./artifacts/*.nupkg
@@ -82,27 +82,27 @@ jobs:
     needs: [build-linux, build-windows]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
 
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
 
       - name: Extract version from tag
         run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: ./native-packages
           merge-multiple: true
 
       - name: Create local NuGet source
         run: |
-          mkdir -p ./local-feed
-          cp ./native-packages/*.nupkg ./local-feed/
-          dotnet nuget add source ./local-feed --name local-feed
+          mkdir -p ${{ github.workspace }}/local-feed
+          cp ./native-packages/*.nupkg ${{ github.workspace }}/local-feed/
+          dotnet nuget add source ${{ github.workspace }}/local-feed --name local-feed
 
       - name: Pack SpellGE.Hunspell
         run: |
@@ -113,7 +113,7 @@ jobs:
 
       - name: Publish to NuGet.org
         run: |
-          for pkg in ./local-feed/*.nupkg; do
+          for pkg in ${{ github.workspace }}/local-feed/*.nupkg; do
             dotnet nuget push "$pkg" --api-key ${{ secrets.NUGET_ORG_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
           done
           for pkg in ./artifacts/*.nupkg; do
