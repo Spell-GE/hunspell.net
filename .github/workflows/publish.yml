@@ -28,7 +28,7 @@ jobs:
 
       - name: Pack SpellGE.Hunspell.Linux
         run: |
-          dotnet pack src/SpellGE.Hunspell.Linux/SpellGE.Hunspell.Linux.csproj \
+          dotnet pack src/Hunspell.Linux/Hunspell.Linux.csproj \
             --configuration Release \
             --output ./artifacts \
             /p:Version=${{ env.VERSION }} \
@@ -60,7 +60,7 @@ jobs:
       - name: Pack SpellGE.Hunspell.Windows
         shell: pwsh
         run: |
-          dotnet pack src/SpellGE.Hunspell.Windows/SpellGE.Hunspell.Windows.csproj `
+          dotnet pack src/Hunspell.Windows/Hunspell.Windows.csproj `
             --configuration Release `
             --output ./artifacts `
             /p:Version=${{ env.VERSION }} `

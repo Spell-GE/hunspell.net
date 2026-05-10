@@ -18,8 +18,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SpellGE.Hunspell.Linux\SpellGE.Hunspell.Linux.csproj" PrivateAssets="none" />
-    <ProjectReference Include="..\SpellGE.Hunspell.Windows\SpellGE.Hunspell.Windows.csproj" PrivateAssets="none" />
+    <ProjectReference Include="..\Hunspell.Linux\Hunspell.Linux.csproj" PrivateAssets="none" />
+    <ProjectReference Include="..\Hunspell.Windows\Hunspell.Windows.csproj" PrivateAssets="none" />
   </ItemGroup>
 
 </Project>
