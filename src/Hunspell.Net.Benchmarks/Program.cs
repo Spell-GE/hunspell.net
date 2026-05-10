@@ -1,4 +1,4 @@
 using BenchmarkDotNet.Running;
 using Hunspell.Net.Benchmarks;
 
-BenchmarkRunner.Run<HunspellBenchmarks>();
+BenchmarkRunner.Run<HunspellBenchmarks>(args);
