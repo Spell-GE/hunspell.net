@@ -14,11 +14,15 @@ env:
 
 jobs:
   build-linux:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
 
       - name: Extract version from tag
         run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
@@ -40,12 +44,15 @@ jobs:
           path: ./artifacts/*.nupkg
 
   build-windows:
-    if: false
-    runs-on: self-hosted
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
 
       - name: Extract version from tag
         shell: pwsh
@@ -72,12 +79,16 @@ jobs:
           path: ./artifacts/*.nupkg
 
   publish:
-    needs: [build-linux]
-    runs-on: self-hosted
+    needs: [build-linux, build-windows]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
 
       - name: Extract version from tag
         run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV

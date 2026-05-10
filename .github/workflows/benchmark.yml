@@ -15,22 +15,31 @@ permissions:
 
 jobs:
   benchmark:
-    runs-on: self-hosted
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            build-script: ./src/Hunspell.Native/build.sh x64
+          - os: windows-latest
+            build-script: pwsh ./src/Hunspell.Native/build.ps1
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
 
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
       - name: Build native library
-        run: ./src/Hunspell.Native/build.sh x64
+        run: ${{ matrix.build-script }}
 
       - name: Run benchmarks
-        run: |
-          dotnet run -c Release \
-            --project src/Hunspell.Net.Benchmarks \
-            -- --exporters json
+        run: dotnet run -c Release --project src/Hunspell.Net.Benchmarks -- --exporters json
 
       - name: Store benchmark results
+        if: matrix.os == 'ubuntu-latest'
         uses: benchmark-action/github-action-benchmark@v1
         with:
           name: Hunspell.Net Benchmarks
