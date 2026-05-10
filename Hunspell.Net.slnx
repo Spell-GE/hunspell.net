@@ -1,6 +1,7 @@
 <Solution>
   <Project Path="src/Hunspell.Net/Hunspell.Net.csproj" />
   <Project Path="src/Hunspell.Net.Tests/Hunspell.Net.Tests.csproj" />
+  <Project Path="src/Hunspell.Net.Benchmarks/Hunspell.Net.Benchmarks.csproj" />
   <Folder Name="/Native/">
     <Project Path="src/Hunspell.Windows/Hunspell.Windows.csproj" />
     <Project Path="src/Hunspell.Linux/Hunspell.Linux.csproj" />

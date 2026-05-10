@@ -1,0 +1,43 @@
+name: Benchmark
+
+on:
+  push:
+    branches:
+      - '**'
+
+concurrency:
+  group: benchmark-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  deployments: write
+
+jobs:
+  benchmark:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build native library
+        run: ./src/Hunspell.Native/build.sh x64
+
+      - name: Run benchmarks
+        run: |
+          dotnet run -c Release \
+            --project src/Hunspell.Net.Benchmarks \
+            -- --exporters json
+
+      - name: Store benchmark results
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: Hunspell.Net Benchmarks
+          tool: benchmarkdotnet
+          output-file-path: BenchmarkDotNet.Artifacts/results/Hunspell.Net.Benchmarks.HunspellBenchmarks-report-full.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: ${{ github.ref == 'refs/heads/main' }}
+          comment-on-alert: true
+          alert-threshold: '150%'
+          fail-on-alert: false
