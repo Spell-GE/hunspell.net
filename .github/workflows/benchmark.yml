@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   benchmark:
+    timeout-minutes: 5
     strategy:
       matrix:
         include:
@@ -36,7 +37,7 @@ jobs:
         run: ${{ matrix.build-script }}
 
       - name: Run benchmarks
-        run: dotnet run -c Release --project src/Hunspell.Net.Benchmarks -- --exporters json
+        run: dotnet run -c Release --project src/Hunspell.Net.Benchmarks -- --exporters json --job short
 
       - name: Store benchmark results
         if: matrix.os == 'ubuntu-latest'
