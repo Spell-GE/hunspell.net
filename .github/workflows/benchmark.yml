@@ -37,7 +37,7 @@ jobs:
         run: ${{ matrix.build-script }}
 
       - name: Run benchmarks
-        run: dotnet run -c Release --project src/Hunspell.Net.Benchmarks -- --exporters json --job dry
+        run: dotnet run -c Release --project src/Hunspell.Net.Benchmarks -- --filter * --exporters json --job dry
 
       - name: Store benchmark results
         if: matrix.os == 'ubuntu-latest'
