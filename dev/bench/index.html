@@ -181,7 +181,7 @@
               datasets: [
                 {
                   label: name,
-                  data: dataset.map(d => d.bench.value),
+                  data: dataset.map(d => d.bench.unit === 'ns' ? d.bench.value / 1000 : d.bench.value),
                   borderColor: color,
                   backgroundColor: color + '60', // Add alpha for #rrggbbaa
                 }
@@ -201,7 +201,7 @@
                   {
                     scaleLabel: {
                       display: true,
-                      labelString: dataset.length > 0 ? dataset[0].bench.unit : '',
+                      labelString: dataset.length > 0 ? (dataset[0].bench.unit === 'ns' ? '\u00b5s' : dataset[0].bench.unit) : '',
                     },
                     ticks: {
                       beginAtZero: true,
@@ -217,9 +217,9 @@
                     return '\n' + data.commit.message + '\n\n' + data.commit.timestamp + ' committed by @' + data.commit.committer.username + '\n';
                   },
                   label: item => {
-                    let label = item.value;
                     const { range, unit } = dataset[item.index].bench;
-                    label += ' ' + unit;
+                    const displayUnit = unit === 'ns' ? '\u00b5s' : unit;
+                    let label = (unit === 'ns' ? parseFloat(item.value).toFixed(1) : item.value) + ' ' + displayUnit;
                     if (range) {
                       label += ' (' + range + ')';
                     }
