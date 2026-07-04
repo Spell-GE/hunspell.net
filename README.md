@@ -6,26 +6,6 @@ A .NET 10 wrapper library for [Hunspell](https://github.com/hunspell/hunspell), 
 [![NuGet SpellGE.Hunspell.Windows](https://img.shields.io/nuget/v/SpellGE.Hunspell.Windows.svg?label=SpellGE.Hunspell.Windows)](https://www.nuget.org/packages/SpellGE.Hunspell.Windows)
 [![NuGet SpellGE.Hunspell.Linux](https://img.shields.io/nuget/v/SpellGE.Hunspell.Linux.svg?label=SpellGE.Hunspell.Linux)](https://www.nuget.org/packages/SpellGE.Hunspell.Linux)
 
-## Prerequisites
-
-- **CMake** 3.20+
-- **C++ compiler** with C++17 support (Clang, GCC, or MSVC)
-- **.NET 10 SDK**
-
-## Project Structure
-
-```
-src/
-  Hunspell.Native/        Native library build (CMake)
-    CMakeLists.txt        Build configuration
-    build.sh              macOS/Linux build script
-    build.ps1             Windows build script
-  Hunspell.Net/           .NET wrapper library
-    NativeMethods.cs      P/Invoke declarations
-    HunspellDictionary.cs Thread-safe high-level API
-  Hunspell.Net.Tests/     Unit and integration tests
-```
-
 ## Building
 
 ### 1. Build the native library
@@ -84,12 +64,24 @@ Each `HunspellDictionary` instance is thread-safe. All public methods are serial
 
 Packages are published to nuget.org automatically via GitHub Actions when a version tag is pushed.
 
+### Versioning
+
+The wrapper follows upstream [Hunspell](https://github.com/hunspell/hunspell) releases. Given a Hunspell version `MAJOR.MINOR.PATCH`, the wrapper version is `MAJOR.MINOR.PATCHx100`:
+
+- Hunspell `v1.7.3` -> wrapper `v1.7.300`
+
+If the wrapper itself needs a fix without a corresponding new Hunspell release, increment the multiplied patch number:
+
+- First wrapper-only fix for Hunspell `v1.7.3` -> `v1.7.301`
+- Second wrapper-only fix -> `v1.7.302`
+
 ```bash
-git tag v1.0.0 && git push origin v1.0.0        # stable release
-git tag v1.0.0-beta.1 && git push origin v1.0.0-beta.1  # pre-release
+git tag v1.7.300 && git push origin v1.7.300        # stable release, matches Hunspell v1.7.3
+git tag v1.7.301 && git push origin v1.7.301        # wrapper-only patch
+git tag v1.7.300-beta.1 && git push origin v1.7.300-beta.1  # pre-release
 ```
 
-The workflow builds the native library, packs `SpellGE.Hunspell.Linux` and `SpellGE.Hunspell`, and pushes both to nuget.org. The repository must have a `NUGET_ORG_API_KEY` secret configured.
+The workflow builds the native library, packs `SpellGE.Hunspell.Linux` and `SpellGE.Hunspell`, and pushes both to nuget.org.
 
 ## License
 
