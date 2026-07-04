@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1783168747307,
+  "lastUpdate": 1783168826327,
   "repoUrl": "https://github.com/Spell-GE/hunspell.net",
   "entries": {
     "Hunspell.Net Benchmarks": [
@@ -454,6 +454,120 @@ window.BENCHMARK_DATA = {
           {
             "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.AddDictionary",
             "value": 672389,
+            "unit": "ns",
+            "range": "± 0"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "me@toka.ge",
+            "name": "Toka Gelashvili",
+            "username": "Dzoge"
+          },
+          "committer": {
+            "email": "me@toka.ge",
+            "name": "Toka Gelashvili",
+            "username": "Dzoge"
+          },
+          "distinct": true,
+          "id": "efd50892a64f488631370334c842ce2da168daef",
+          "message": "Pin hunspell submodule to release c5f9815 (v1.7.3)",
+          "timestamp": "2026-07-04T16:37:57+04:00",
+          "tree_id": "8d2a082dfe77746fd15764a91f2a9df8733bcabd",
+          "url": "https://github.com/Spell-GE/hunspell.net/commit/efd50892a64f488631370334c842ce2da168daef"
+        },
+        "date": 1783168825561,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.CreateDictionary",
+            "value": 573788,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.SpellCorrect",
+            "value": 437074,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.SpellMisspelled",
+            "value": 644210,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.Suggest",
+            "value": 712546,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.SuffixSuggest",
+            "value": 632016,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.Analyze",
+            "value": 253312,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.StemWord",
+            "value": 683923,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.StemMorph",
+            "value": 2070094,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.GenerateByExample",
+            "value": 677030,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.GenerateByMorph",
+            "value": 2125587,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.GetDicEncoding",
+            "value": 399865,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.AddAndRemove",
+            "value": 637217,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.AddWithAffixAndRemove",
+            "value": 648598,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.AddWithFlagsAndRemove",
+            "value": 696807,
+            "unit": "ns",
+            "range": "± 0"
+          },
+          {
+            "name": "Hunspell.Net.Benchmarks.HunspellBenchmarks.AddDictionary",
+            "value": 574910,
             "unit": "ns",
             "range": "± 0"
           }
