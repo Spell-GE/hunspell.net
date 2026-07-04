@@ -2,6 +2,10 @@
 
 A .NET 10 wrapper library for [Hunspell](https://github.com/hunspell/hunspell), providing P/Invoke bindings to the native C API with instance-level thread safety.
 
+[![NuGet SpellGE.Hunspell](https://img.shields.io/nuget/v/SpellGE.Hunspell.svg?label=SpellGE.Hunspell)](https://www.nuget.org/packages/SpellGE.Hunspell)
+[![NuGet SpellGE.Hunspell.Windows](https://img.shields.io/nuget/v/SpellGE.Hunspell.Windows.svg?label=SpellGE.Hunspell.Windows)](https://www.nuget.org/packages/SpellGE.Hunspell.Windows)
+[![NuGet SpellGE.Hunspell.Linux](https://img.shields.io/nuget/v/SpellGE.Hunspell.Linux.svg?label=SpellGE.Hunspell.Linux)](https://www.nuget.org/packages/SpellGE.Hunspell.Linux)
+
 ## Prerequisites
 
 - **CMake** 3.20+
